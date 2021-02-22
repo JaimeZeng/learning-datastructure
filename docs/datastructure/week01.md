@@ -183,8 +183,70 @@ public class LinearSearch01Test {
   </CodeGroupItem>
 </CodeGroup>
 
-4. 使用泛型让算法更通用
-5. 自定义类测试算法
-6. 循环不变量
-7. 复杂度分析
-8. 常见算法复杂度举例
+### 使用泛型
+
+- 不可以是基本数据类型,只能是类对象。Java 基本数据类型：(boolean, byte, char, short, int, long, float, double)
+- 每个基本数据类型都有对应的包装类:(Boolean, Byte, Character, Short, Integer, Long, Float, Double)
+
+<CodeGroup>
+<CodeGroupItem title="LinearSearch02.java" active>
+
+```java
+package pub.zxj.datastructure.week01;
+
+/**
+ * 线性查找类 LinearSearch02, 使用泛型
+ *
+ * @author Jaime
+ */
+public class LinearSearch02 {
+
+    /**
+     * 无参构造
+     */
+    private LinearSearch02() {
+    }
+
+    /**
+     * 在类对象数组中查找类对象目标值是否存在。存在返回目标元素在数组中的下标索引值。未找到返回-1.
+     *
+     * @param data   类对象数组
+     * @param target 类对象目标元素
+     * @param <E>    泛型
+     * @return 存在返回目标元素在数组中的下标索引值。未找到返回-1.
+     */
+    public static <E> int search(E[] data, E target) {
+        for (int i = 0; i < data.length; i++) {
+            if (target.equals(data[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="LinearSearch02Test.java">
+
+```java
+package pub.zxj.datastructure.week01;
+
+/**
+ * LinearSearch02 测试类
+ *
+ * @author Jaime
+ */
+public class LinearSearch02Test {
+    public static void main(String[] args) {
+        Integer[] data = {24, 18, 12, 9, 16, 66, 32, 4};
+        System.out.println((LinearSearch02.<Integer>search(data, 16) == -1) ? "Not Found!" : "Find, index = " + LinearSearch02.<Integer>search(data, 16));
+        System.out.println((LinearSearch02.search(data, 88) == -1) ? "Not Found!" : "Find, index = " + LinearSearch02.search(data, 88));
+    }
+}
+
+```
+
+</CodeGroupItem>
+</CodeGroup>
