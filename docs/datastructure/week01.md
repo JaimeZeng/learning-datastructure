@@ -117,10 +117,9 @@ public class LinearSearch {
         System.out.println((ls.search(data, 88) == -1) ? "Not Found!" : "Find, index = " + ls.search(data, 88));
     }
 }
-
 ```
 
-  </CodeGroupItem>
+</CodeGroupItem>
   <CodeGroupItem title="LinearSearch01.java">
 
 ```java
@@ -155,10 +154,9 @@ public class LinearSearch01 {
         return -1;
     }
 }
-
 ```
 
-  </CodeGroupItem>
+</CodeGroupItem>
   <CodeGroupItem title="LinearSearch01Test.java">
 
 ```java
@@ -177,10 +175,9 @@ public class LinearSearch01Test {
         System.out.println((LinearSearch01.search(data, 88) == -1) ? "Not Found!" : "Find, index = " + LinearSearch01.search(data, 88));
     }
 }
-
 ```
 
-  </CodeGroupItem>
+</CodeGroupItem>
 </CodeGroup>
 
 ### 使用泛型
@@ -224,7 +221,6 @@ public class LinearSearch02 {
         return -1;
     }
 }
-
 ```
 
 </CodeGroupItem>
@@ -245,7 +241,182 @@ public class LinearSearch02Test {
         System.out.println((LinearSearch02.search(data, 88) == -1) ? "Not Found!" : "Find, index = " + LinearSearch02.search(data, 88));
     }
 }
+```
 
+</CodeGroupItem>
+</CodeGroup>
+
+### 自定义学生类 Student 测试
+
+<CodeGroup>
+<CodeGroupItem title="Student.java" active>
+
+```java
+package pub.zxj.datastructure.week01;
+
+/**
+ * 自定义学生类 Student
+ *
+ * @author Jaime
+ */
+public class Student {
+    /**
+     * 学生姓名stuName、学生学号stuId
+     */
+    private String stuName;
+    private String stuId;
+
+    /**
+     * 无参构造
+     */
+    public Student() {
+    }
+
+    /**
+     * 全参构造初始化
+     *
+     * @param stuName 学生姓名
+     * @param stuId   学生学号
+     */
+    public Student(String stuName, String stuId) {
+        this.setStuName(stuName);
+        this.setStuId(stuId);
+    }
+
+    /**
+     * 获取学生姓名
+     *
+     * @return 学生姓名
+     */
+    public String getStuName() {
+        return stuName;
+    }
+
+    /**
+     * 设置学生姓名
+     *
+     * @param stuName 学生姓名
+     */
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    /**
+     * 获取学生学号
+     *
+     * @return 学生学号
+     */
+    public String getStuId() {
+        return stuId;
+    }
+
+    /**
+     * 设置学生学号
+     *
+     * @param stuId 学生学号
+     */
+    public void setStuId(String stuId) {
+        this.stuId = stuId;
+    }
+
+    /**
+     * 重写equals方法（Ctrl+O），判断两类对象的学生学号属性（不区分大小写）是否一致。
+     *
+     * @param obj 传入的类对象
+     * @return 两类对象的学生学号属性（不区分大小写）一致返回true，否则返回false
+     */
+    @Override
+    public boolean equals(Object obj) {
+
+        // 判断是否比较的是同一个对象
+        if (this == obj) {
+            return true;
+        }
+
+        // 传入的对象是否为空
+        if (obj == null) {
+            return false;
+        }
+
+        // 判断两对象的类是否一致
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Student another = (Student) obj;
+        return this.getStuId().toLowerCase().equals(another.getStuId().toLowerCase());
+    }
+}
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="LinearSearch02.java">
+
+```java
+package pub.zxj.datastructure.week01;
+
+/**
+ * 线性查找类 LinearSearch02, 使用泛型
+ *
+ * @author Jaime
+ */
+public class LinearSearch02 {
+
+    /**
+     * 无参构造
+     */
+    private LinearSearch02() {
+    }
+
+    /**
+     * 在类对象数组中查找类对象目标值是否存在。存在返回目标元素在数组中的下标索引值。未找到返回-1.
+     *
+     * @param data   类对象数组
+     * @param target 类对象目标元素
+     * @param <E>    泛型
+     * @return 存在返回目标元素在数组中的下标索引值。未找到返回-1.
+     */
+    public static <E> int search(E[] data, E target) {
+        for (int i = 0; i < data.length; i++) {
+            if (target.equals(data[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="StudentTest.java">
+
+```java
+package pub.zxj.datastructure.week01;
+
+/**
+ * 学生类 Student 的测试类
+ *
+ * @author Jaime
+ */
+public class StudentTest {
+    public static void main(String[] args) {
+        Student stu01 = new Student("Jaime", "S001");
+        Student stu02 = new Student("Ryan", "S002");
+        Student stu03 = new Student("ZhangWei", "S006");
+        Student[] stus = {stu01, stu02, stu03};
+
+        System.out.println(LinearSearch02.search(stus, stu02));   //添加断点查看
+
+        Student stuKong = null;
+        System.out.println(LinearSearch02.search(stus, stuKong));   //添加断点查看
+
+        Student stuKosya = new Student("Kosya", "S996");
+        System.out.println(LinearSearch02.search(stus, stuKosya));   //添加断点查看
+
+        Student stuJaime = new Student("zhangwei", "s006");
+        System.out.println(LinearSearch02.search(stus, stuJaime));   //添加断点查看
+    }
+}
 ```
 
 </CodeGroupItem>
